@@ -1,67 +1,76 @@
 import React from 'react';
 
-const Room = (props) => {
+class Room extends React.Component {
+    constructor(props){
+        super(props);
+    }
     /**
-     * call parent component method to update adult state.
-     * @param {Object} event 
-     */
-    const adultSelect = (event) =>{
-        props.adultSelect(event.target.value, props.room.no);
+         * call parent component method to update adult state.
+         * @param {Object} event 
+         */
+    adultSelect = (event) => {
+        this.props.adultSelect(event.target.value, this.props.room.no);
     }
 
     /**
      * call parent component method to update children state.
      * @param {Object} event 
      */
-    const childerenSelect = (event) =>{
-        props.childerenSelect(event.target.value, props.room.no);
+    childerenSelect = (event) => {
+        this.props.childerenSelect(event.target.value, this.props.room.no);
     }
-    
+
     /**
      * call parent component method to update disable state.
      * @param {Object} event 
      */
-    const checkboxClick = (event) =>{
-        props.checkboxClick(props.room.no);
+    checkboxClick = (event) => {
+        this.props.checkboxClick(this.props.room.no);
     }
+
+    render() {
         return (
-            <div className={"room " + (props.room.disable?"disable":"")}> 
-                <div className={"checkbox " + (props.room.disable?"disable":"")}>
-                {props.room.no !==0 ? 
-                    (<input 
-                        type='checkbox' 
-                        name='Room' 
-                        onChange={checkboxClick} 
-                        checked = {!props.room.disable
-                        }/>):'' 
-                }
-                <span> Rooms {props.room.no + 1}</span>
+            <div className={"room " + (this.props.room.disable ? "disable" : "")}>
+                <div className={"checkbox " + (this.props.room.disable ? "disable" : "")}>
+                    {this.props.room.no !== 0 ?
+                        (<input
+                            id='checkbox'
+                            type='checkbox'
+                            name='Room'
+                            onChange={this.checkboxClick}
+                            checked={!this.props.room.disable
+                            } />) : ''
+                    }
+                    <span> Rooms {this.props.room.no + 1}</span>
                 </div>
 
                 <div>
                     <div className="dropdown">
                         <p> adults</p>
                         <p> (18+)</p>
-                        <select onChange={adultSelect} 
-                                value={props.room.adult} 
-                                disabled={props.room.disable}>
+                        <select id="adult"
+                            onChange={this.adultSelect}
+                            value={this.props.room.adult}
+                            disabled={this.props.room.disable}>
                             <option value="1"> 1</option>
                             <option value="2"> 2</option>
                         </select>
                     </div>
-                    <div  className="dropdown">
+                    <div className="dropdown">
                         <p> childeren</p>
                         <p> (0-17)</p>
-                        <select onChange={childerenSelect} 
-                                value={props.room.childeren} 
-                                disabled={props.room.disable}>
-                            <option value="0"> 0</option>    
+                        <select id="children"
+                            onChange={this.childerenSelect}
+                            value={this.props.room.childeren}
+                            disabled={this.props.room.disable}>
+                            <option value="0"> 0</option>
                             <option value="1"> 1</option>
                             <option value="2"> 2</option>
-                        </select>    
+                        </select>
                     </div>
                 </div>
             </div>
         );
+    }
 }
 export default Room;

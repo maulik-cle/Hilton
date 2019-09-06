@@ -30,7 +30,9 @@
 .room .dropdown p{
   margin: 2px;
 }
-
+.room .dropdown select{
+  margin-top: 5px;
+}
 .button {
   margin: 10px;
 }
